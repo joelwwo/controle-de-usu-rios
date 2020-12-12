@@ -8,6 +8,10 @@ const Hash = use('Hash')
 
 class User extends Model {
 
+  static get hidden() {
+    return ['password']
+  }
+
   address() {
     return this.belongsTo('App/Models/Address')
   }

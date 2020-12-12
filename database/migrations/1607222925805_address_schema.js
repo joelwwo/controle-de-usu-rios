@@ -16,6 +16,11 @@ class AddressSchema extends Schema {
         .onDelete('CASCADE')
       table.string('name', 220).notNullable()
       table.string('cep', 8).notNullable()
+      table.string('publicPlace', 400).notNullable()
+      table.string('details', 300)
+      table.string('neighborhood', 120).notNullable()
+      table.string('city', 50).notNullable()
+      table.string('state', 5).notNullable()
       table.timestamps()
     })
   }

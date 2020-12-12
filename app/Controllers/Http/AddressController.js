@@ -1,5 +1,7 @@
 'use strict'
 
+const Address = use('App/Models/Address')
+
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
@@ -17,7 +19,9 @@ class AddressController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index({ request, response, view }) {
+  async index() {
+    const address = await Address.all()
+    return address
   }
 
   /**
@@ -28,7 +32,11 @@ class AddressController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store({ request, response }) {
+  async store({ request, auth }) {
+    const user_id = auth.user.id
+    const data = request.only(['cep', 'name', 'publicPlace', 'details', 'neighborhood', 'city', 'state'])
+    const address = Address.create({ user_id, ...data })
+    return address
   }
 
   /**
@@ -41,6 +49,8 @@ class AddressController {
    * @param {View} ctx.view
    */
   async show({ params, request, response, view }) {
+    const address = Address.find(params.id)
+    return address
   }
 
   /**
@@ -52,6 +62,12 @@ class AddressController {
    * @param {Response} ctx.response
    */
   async update({ params, request, response }) {
+    const address = await Address.find(params.id)
+    if (!address) return response.status(404).send({ message: 'Not found' })
+    const data = request.only(['cep', 'name', 'publicPlace', 'details', 'neighborhood', 'city', 'state'])
+    address.fill(data)
+    address.save()
+    return address
   }
 
   /**
@@ -63,6 +79,12 @@ class AddressController {
    * @param {Response} ctx.response
    */
   async destroy({ params, request, response }) {
+    const address = await Address.find(params.id)
+    if (address) {
+      address.delete()
+      return address
+    }
+    return response.status(404).send({ message: 'not found' })
   }
 }
 
