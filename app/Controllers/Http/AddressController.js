@@ -20,7 +20,7 @@ class AddressController {
    * @param {View} ctx.view
    */
   async index() {
-    const address = await Address.all()
+    const address = await Address.query().with('user').fetch()
     return address
   }
 

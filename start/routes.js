@@ -26,7 +26,7 @@ Route.post('/login', 'AuthController.authenticater')
 
 Route.group(() => {
   Route.resource('users', 'UserController').apiOnly()
-}).middleware('auth')
+})/* .middleware('auth') */
 
 Route.group(() => {
   Route.resource('address', 'AddressController').apiOnly()

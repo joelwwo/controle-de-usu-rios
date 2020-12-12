@@ -20,7 +20,7 @@ class UserController {
    * @param {View} ctx.view
    */
   async index() {
-    const users = await User.query().with("shoppinglist").fetch()
+    const users = await User.query().with("address").fetch()
     return users
   }
 

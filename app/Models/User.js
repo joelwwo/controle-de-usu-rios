@@ -13,7 +13,7 @@ class User extends Model {
   }
 
   address() {
-    return this.belongsTo('App/Models/Address')
+    return this.hasMany('App/Models/Address')
   }
 
   cellphone() {
