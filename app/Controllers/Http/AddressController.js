@@ -33,9 +33,8 @@ class AddressController {
    * @param {Response} ctx.response
    */
   async store({ request, auth }) {
-    const user_id = auth.user.id
     const data = request.only(['cep', 'name', 'publicPlace', 'details', 'neighborhood', 'city', 'state'])
-    const address = await Address.create({ user_id, ...data })
+    const address = await Address.create({ user_id: auth.user.id, ...data })
     return address
   }
 
@@ -48,8 +47,8 @@ class AddressController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show({ params, request, response, view }) {
-    const address = Address.find(params.id)
+  async show({ params, response }) {
+    const address = await Address.find(params.id)
     if (!address) return response.status(404).send({ message: 'Address not found' })
     return address
   }
@@ -79,7 +78,7 @@ class AddressController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy({ params, request, response }) {
+  async destroy({ params, response }) {
     const address = await Address.find(params.id)
     if (!address) return response.status(404).send({ message: 'not found' })
     await address.delete()

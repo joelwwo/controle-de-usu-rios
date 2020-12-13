@@ -33,7 +33,7 @@ class UserController {
    * @param {Response} ctx.response
    */
   async store({ request }) {
-    const data = request.all()
+    const data = request.only(["name", "email", "password", "type", "active"])
     const user = await User.create(data)
     return user
   }
@@ -63,11 +63,10 @@ class UserController {
   async update({ params, request, response }) {
     const user = await User.find(params.id)
     if (!user) return response.status(404).send({ message: 'User not found!' })
-    const data = request.all()
+    const data = request.only(["name", "email", "password", "type", "active"])
     user.merge(data)
-    user.save()
+    await user.save()
     return user
-
   }
 
   /**
@@ -78,7 +77,7 @@ class UserController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy({ params, request, response }) {
+  async destroy({ params, response }) {
     const user = await User.find(params.id)
     if (!user) return response.status(404).send({ message: 'User not found!' })
     user.delete()
