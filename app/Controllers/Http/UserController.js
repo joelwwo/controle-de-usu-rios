@@ -48,7 +48,7 @@ class UserController {
    * @param {View} ctx.view
    */
   async show({ params }) {
-    const user = User.find(params.id)
+    const user = await User.find(params.id)
     return user
   }
 
@@ -79,7 +79,7 @@ class UserController {
    * @param {Response} ctx.response
    */
   async destroy({ params, request, response }) {
-    const user = User.find(params.id)
+    const user = await User.find(params.id)
     if (!user) return response.status(404).send({ message: 'User not found!' })
     user.delete()
     return user

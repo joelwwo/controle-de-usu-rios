@@ -1,5 +1,7 @@
 'use strict'
 
+const Cellphone = use("App/Models/Cellphone")
+
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
@@ -17,7 +19,9 @@ class CellphoneController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index({ request, response, view }) {
+  async index() {
+    const cellPhones = await Cellphone.all()
+    return cellPhones
   }
 
   /**
@@ -28,7 +32,10 @@ class CellphoneController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store({ request, response }) {
+  async store({ request, auth }) {
+    const data = request.only(["owner", "number"])
+    const cellphone = await Cellphone.create({ user_id: auth.user.id, ...data })
+    return cellphone
   }
 
   /**
@@ -40,7 +47,10 @@ class CellphoneController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show({ params, request, response, view }) {
+  async show({ params, response }) {
+    const cellphone = await Cellphone.find(params.id)
+    if (!cellphone) return response.status(404).send({ message: 'Cellphone not found' })
+    return cellphone
   }
 
   /**
@@ -52,6 +62,12 @@ class CellphoneController {
    * @param {Response} ctx.response
    */
   async update({ params, request, response }) {
+    const cellphone = await Cellphone.find(params.id)
+    if (!cellphone) return response.status(404).send({ message: 'Cellphone not found' })
+    const data = request.only(["owner", "number"])
+    cellphone.merge(data)
+    await cellphone.save()
+    return cellphone
   }
 
   /**
@@ -62,7 +78,11 @@ class CellphoneController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy({ params, request, response }) {
+  async destroy({ params, response }) {
+    const cellphone = await Cellphone.find(params.id)
+    if (!cellphone) return response.status(404).send({ message: 'Cellphone not found' })
+    await cellphone.delete()
+    return cellphone
   }
 }
 

@@ -35,7 +35,7 @@ class AddressController {
   async store({ request, auth }) {
     const user_id = auth.user.id
     const data = request.only(['cep', 'name', 'publicPlace', 'details', 'neighborhood', 'city', 'state'])
-    const address = Address.create({ user_id, ...data })
+    const address = await Address.create({ user_id, ...data })
     return address
   }
 
@@ -50,6 +50,7 @@ class AddressController {
    */
   async show({ params, request, response, view }) {
     const address = Address.find(params.id)
+    if (!address) return response.status(404).send({ message: 'Address not found' })
     return address
   }
 
@@ -64,9 +65,9 @@ class AddressController {
   async update({ params, request, response }) {
     const address = await Address.find(params.id)
     if (!address) return response.status(404).send({ message: 'Address not found' })
-    const data = request.all()
+    const data = request.only(['cep', 'name', 'publicPlace', 'details', 'neighborhood', 'city', 'state'])
     address.merge(data)
-    address.save()
+    await address.save()
     return address
   }
 
@@ -80,11 +81,9 @@ class AddressController {
    */
   async destroy({ params, request, response }) {
     const address = await Address.find(params.id)
-    if (address) {
-      address.delete()
-      return address
-    }
-    return response.status(404).send({ message: 'not found' })
+    if (!address) return response.status(404).send({ message: 'not found' })
+    await address.delete()
+    return address
   }
 }
 

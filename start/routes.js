@@ -31,3 +31,7 @@ Route.group(() => {
 Route.group(() => {
   Route.resource('address', 'AddressController').apiOnly()
 }).middleware('auth')
+
+Route.group(() => {
+  Route.resource('cellphones', 'CellphoneController').apiOnly()
+}).middleware('auth')
