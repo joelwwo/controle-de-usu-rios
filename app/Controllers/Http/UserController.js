@@ -47,7 +47,7 @@ class UserController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show({ params }) {
+  async show({ params, response }) {
     const user = await User.find(params.id)
     if (!user) return response.status(404).send({ message: 'User not found!' })
     return user
