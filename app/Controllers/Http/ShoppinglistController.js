@@ -33,7 +33,7 @@ class ShoppinglistController {
    * @param {Response} ctx.response
    */
   async store({ request, auth }) {
-    const data = request.only(["amount", "paid"])
+    const data = request.only(["amount", "paid", "description"])
     const purchase = await ShoppingList.create({ user_id: auth.user.id, ...data })
     return purchase
   }
@@ -64,7 +64,7 @@ class ShoppinglistController {
   async update({ params, request, response }) {
     const purchase = await ShoppingList.find(params.id)
     if (!purchase) return response.status(404).send({ message: 'Purchase not found' })
-    const data = request.only(["amount", "paid"])
+    const data = request.only(["amount", "paid", "description"])
     purchase.merge(data)
     await purchase.save()
     return purchase
