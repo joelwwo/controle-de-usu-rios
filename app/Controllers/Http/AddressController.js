@@ -63,9 +63,9 @@ class AddressController {
    */
   async update({ params, request, response }) {
     const address = await Address.find(params.id)
-    if (!address) return response.status(404).send({ message: 'Not found' })
-    const data = request.only(['cep', 'name', 'publicPlace', 'details', 'neighborhood', 'city', 'state'])
-    address.fill(data)
+    if (!address) return response.status(404).send({ message: 'Address not found' })
+    const data = request.all()
+    address.merge(data)
     address.save()
     return address
   }
