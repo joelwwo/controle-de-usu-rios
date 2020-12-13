@@ -19,7 +19,7 @@ const { RouteResource } = require('@adonisjs/framework/src/Route/Manager')
 const Route = use('Route')
 
 Route.get('/', () => {
-  return { greeting: 'Hello world in JSON' }
+  return { message: 'Beleza, Matos', by: 'Joel' }
 })
 
 Route.post('/login', 'AuthController.authenticater')
