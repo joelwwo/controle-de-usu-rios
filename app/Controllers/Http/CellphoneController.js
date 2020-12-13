@@ -33,7 +33,7 @@ class CellphoneController {
    * @param {Response} ctx.response
    */
   async store({ request, auth }) {
-    const data = request.only(["owner", "number"])
+    const data = request.only(["description", "number"])
     const cellphone = await Cellphone.create({ user_id: auth.user.id, ...data })
     return cellphone
   }
@@ -64,7 +64,7 @@ class CellphoneController {
   async update({ params, request, response }) {
     const cellphone = await Cellphone.find(params.id)
     if (!cellphone) return response.status(404).send({ message: 'Cellphone not found' })
-    const data = request.only(["owner", "number"])
+    const data = request.only(["description", "number"])
     cellphone.merge(data)
     await cellphone.save()
     return cellphone

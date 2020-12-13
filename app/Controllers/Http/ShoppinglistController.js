@@ -1,5 +1,7 @@
 'use strict'
 
+const ShoppingList = use("App/Models/Shoppinglist")
+
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
@@ -17,7 +19,9 @@ class ShoppinglistController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index({ request, response, view }) {
+  async index() {
+    const shoppingList = await ShoppingList.all()
+    return shoppingList
   }
 
   /**
@@ -28,7 +32,10 @@ class ShoppinglistController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store({ request, response }) {
+  async store({ request, auth }) {
+    const data = request.only(["amount", "paid"])
+    const purchase = await ShoppingList.create({ user_id: auth.user.id, ...data })
+    return purchase
   }
 
   /**
@@ -40,7 +47,10 @@ class ShoppinglistController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show({ params, request, response, view }) {
+  async show({ params, response }) {
+    const purchase = await ShoppingList.find(params.id)
+    if (!purchase) return response.status(404).send({ message: 'Purchase not found' })
+    return purchase
   }
 
   /**
@@ -52,6 +62,12 @@ class ShoppinglistController {
    * @param {Response} ctx.response
    */
   async update({ params, request, response }) {
+    const purchase = await ShoppingList.find(params.id)
+    if (!purchase) return response.status(404).send({ message: 'Purchase not found' })
+    const data = request.only(["amount", "paid"])
+    purchase.merge(data)
+    await purchase.save()
+    return purchase
   }
 
   /**
@@ -63,6 +79,10 @@ class ShoppinglistController {
    * @param {Response} ctx.response
    */
   async destroy({ params, request, response }) {
+    const purchase = await ShoppingList.find(params.id)
+    if (!purchase) return response.status(404).send({ message: 'Purchase not found' })
+    await purchase.delete()
+    return purchase
   }
 }
 

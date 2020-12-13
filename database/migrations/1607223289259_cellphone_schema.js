@@ -14,7 +14,7 @@ class CellphoneSchema extends Schema {
         .inTable('users')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
-      table.string('owner', 120).notNullable()
+      table.string('description', 120).notNullable()
       table.string('number', 11).notNullable()
       table.timestamps()
     })

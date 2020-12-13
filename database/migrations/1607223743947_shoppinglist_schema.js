@@ -14,8 +14,9 @@ class ShoppinglistSchema extends Schema {
         .inTable('users')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
+      table.string('description', 400)
       table.bigInteger('amount').notNullable()
-      table.boolean('paid').defaultTo(true)
+      table.boolean('paid').defaultTo(false)
       table.timestamps()
     })
   }
