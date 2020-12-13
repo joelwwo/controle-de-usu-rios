@@ -49,6 +49,7 @@ class UserController {
    */
   async show({ params }) {
     const user = await User.find(params.id)
+    if (!user) return response.status(404).send({ message: 'User not found!' })
     return user
   }
 
@@ -80,7 +81,7 @@ class UserController {
   async destroy({ params, response }) {
     const user = await User.find(params.id)
     if (!user) return response.status(404).send({ message: 'User not found!' })
-    user.delete()
+    await user.delete()
     return user
   }
 }
