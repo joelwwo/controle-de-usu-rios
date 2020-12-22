@@ -1,5 +1,7 @@
 'use strict'
 
+const userService = use("App/Services/userService")
+
 const User = use("App/Models/User")
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
@@ -20,7 +22,7 @@ class UserController {
    * @param {View} ctx.view
    */
   async index() {
-    const users = await User.query().with("address").fetch()
+    const users = await userService.index()
     return users
   }
 
@@ -34,8 +36,7 @@ class UserController {
    */
   async store({ request }) {
     const data = request.only(["name", "email", "password", "type", "active"])
-    const user = await User.create(data)
-    return user
+    return await userService.store(data)
   }
 
   /**
@@ -48,7 +49,7 @@ class UserController {
    * @param {View} ctx.view
    */
   async show({ params, response }) {
-    const user = await User.find(params.id)
+    const user = await userService.show(params.id)
     if (!user) return response.status(404).send({ message: 'User not found!' })
     return user
   }
@@ -62,12 +63,10 @@ class UserController {
    * @param {Response} ctx.response
    */
   async update({ params, request, response }) {
-    const user = await User.find(params.id)
+    const user = await userService.show(params.id)
     if (!user) return response.status(404).send({ message: 'User not found!' })
     const data = request.only(["name", "email", "password", "type", "active"])
-    user.merge(data)
-    await user.save()
-    return user
+    return await userService.update(user, data)
   }
 
   /**
@@ -79,10 +78,9 @@ class UserController {
    * @param {Response} ctx.response
    */
   async destroy({ params, response }) {
-    const user = await User.find(params.id)
+    const user = await userService.show(params.id)
     if (!user) return response.status(404).send({ message: 'User not found!' })
-    await user.delete()
-    return user
+    return await userService.destroy(user)
   }
 }
 
