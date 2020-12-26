@@ -1,6 +1,7 @@
 'use strict'
 
 const Address = use('App/Models/Address')
+const addressService = use('App/Services/addressService')
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -20,8 +21,8 @@ class AddressController {
    * @param {View} ctx.view
    */
   async index() {
-    const address = await Address.query().with('user').fetch()
-    return address
+    const addresses = await addressService.index()
+    return addresses
   }
 
   /**
@@ -34,7 +35,7 @@ class AddressController {
    */
   async store({ request, auth }) {
     const data = request.only(['cep', 'name', 'publicPlace', 'details', 'neighborhood', 'city', 'state'])
-    const address = await Address.create({ user_id: auth.user.id, ...data })
+    const address = await addressService.store(auth.user.id, data)
     return address
   }
 
@@ -48,7 +49,7 @@ class AddressController {
    * @param {View} ctx.view
    */
   async show({ params, response }) {
-    const address = await Address.find(params.id)
+    const address = await addressService.show(params.id)
     if (!address) return response.status(404).send({ message: 'Address not found' })
     return address
   }
@@ -62,12 +63,10 @@ class AddressController {
    * @param {Response} ctx.response
    */
   async update({ params, request, response }) {
-    const address = await Address.find(params.id)
+    const address = await addressService.show(params.id)
     if (!address) return response.status(404).send({ message: 'Address not found' })
     const data = request.only(['cep', 'name', 'publicPlace', 'details', 'neighborhood', 'city', 'state'])
-    address.merge(data)
-    await address.save()
-    return address
+    return await addressService.update(address, data)
   }
 
   /**
@@ -81,8 +80,7 @@ class AddressController {
   async destroy({ params, response }) {
     const address = await Address.find(params.id)
     if (!address) return response.status(404).send({ message: 'not found' })
-    await address.delete()
-    return address
+    return await addressService.destroy(address)
   }
 }
 
