@@ -2,12 +2,10 @@ class BaseService {
     model
     member
 
-    constructor(model) {
-        this.model = model
-    }
-
     async index() {
-        return await this.model.all()
+        if (!this.member)
+            return await this.model.all()
+        return await this.model.query().with(this.member).fetch()
     }
 
     setModel(model) {
