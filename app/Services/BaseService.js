@@ -24,13 +24,17 @@ class BaseService {
         return targetModel
     }
 
-    async update(data, targetModel) {
+    async update(id, data) {
+        const targetModel = await this.model.find(id)
+        if (!targetModel) return false
         targetModel.merge(data)
         await targetModel.save()
         return targetModel
     }
 
-    async destroy(targetModel) {
+    async destroy(id) {
+        const targetModel = await this.model.find(id)
+        if (!targetModel) return false
         await targetModel.delete()
         return targetModel
     }

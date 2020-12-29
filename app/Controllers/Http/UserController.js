@@ -14,22 +14,22 @@ class UserController {
   }
 
   async show({ params, response }) {
-    const user = await UserService.show(params.id)
-    if (!user) return response.status(404).send({ message: 'User not found!' })
-    return user
+    const targetUser = await UserService.show(params.id)
+    if (!targetUser) return response.status(404).send({ message: 'User not found!' })
+    return targetUser
   }
 
   async update({ params, request, response }) {
-    const user = await UserService.show(params.id)
-    if (!user) return response.status(404).send({ message: 'User not found!' })
     const data = request.only(["name", "email", "password", "type", "active"])
-    return await UserService.update(user, data)
+    const targetUser = await UserService.update(params.id, data)
+    if (!targetUser) return response.status(404).send({ message: 'User not found!' })
+    return targetUser
   }
 
   async destroy({ params, response }) {
-    const user = await UserService.show(params.id)
-    if (!user) return response.status(404).send({ message: 'User not found!' })
-    return await userService.destroy(user)
+    const targetUser = await UserService.destroy(params.id)
+    if (!targetUser) return response.status(404).send({ message: 'User not found!' })
+    return targetUser
   }
 
 }
