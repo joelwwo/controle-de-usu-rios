@@ -1,15 +1,11 @@
 class BaseService {
     model
-    member
+    members
 
     async index() {
-        if (!this.member)
-            return await this.model.all()
-        return await this.model.query().with(this.member).fetch()
-    }
-
-    setModel(model) {
-        this.model = model
+        if (this.members.length)
+            return await this.model.query().with(this.members[0]).fetch()
+        return await this.model.all()
     }
 
     async store(data) {
@@ -18,7 +14,10 @@ class BaseService {
     }
 
     async show(id) {
-        const targetModel = await this.model.find(id)
+        let targetModel = await this.model.find(id)
+        if (!targetModel) return false
+        if (this.members.length)
+            return await targetModel.loadMany(['address', 'cellphone'])
         return targetModel
     }
 

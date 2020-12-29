@@ -5,7 +5,7 @@ class UserService extends BaseService {
     constructor() {
         super()
         this.model = User
-        this.member = 'address'
+        this.members = ['address', 'cellphone']
     }
 }
 
