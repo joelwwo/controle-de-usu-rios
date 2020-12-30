@@ -17,11 +17,11 @@ class User extends Model {
   }
 
   cellphone() {
-    return this.belongsTo('App/Models/Cellphone')
+    return this.hasMany('App/Models/Cellphone')
   }
 
   shoppinglist() {
-    return this.belongsTo('App/Models/Shoppinglist')
+    return this.hasMany('App/Models/Shoppinglist')
   }
 
 

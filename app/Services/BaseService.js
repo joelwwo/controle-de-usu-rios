@@ -17,6 +17,8 @@ class BaseService {
     async show(id) {
         const targetModel = await this.model.find(id)
         if (!targetModel) return false
+        if (this.members.length)
+            await targetModel.loadMany(this.members)
         return targetModel
 
     }

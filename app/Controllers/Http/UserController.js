@@ -17,7 +17,7 @@ class UserController {
   async show({ params, response }) {
     let targetUser = await UserService.show(params.id)
     if (!targetUser) return response.status(404).send({ message: 'User not found!' })
-    await targetUser.loadMany(['address', 'cellphone'])
+    //await targetUser.loadMany(['address', 'cellphone'])
     return targetUser
   }
 
