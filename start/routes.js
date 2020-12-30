@@ -25,16 +25,16 @@ Route.get('/', () => {
 Route.post('/login', 'AuthController.authenticater')
 
 Route.resource('users', 'UserController')
-  ./* middleware(new Map([
-    [['index'], ['auth', 'typeUser:master,query,edit']],
-    [['store'], ['auth', 'typeUser:master,edit']],
-    [['show'], ['auth', 'typeUser:master,query,edit,self']],
-    [['update'], ['auth', 'typeUser:master,self']],
-    [['destroy'], ['auth', 'typeUser:master']],
-  ])).apiOnly() */
+/* .middleware(new Map([
+  [['index'], ['auth', 'typeUser:master,query,edit']],
+  [['store'], ['auth', 'typeUser:master,edit']],
+  [['show'], ['auth', 'typeUser:master,query,edit,self']],
+  [['update'], ['auth', 'typeUser:master,self']],
+  [['destroy'], ['auth', 'typeUser:master']],
+])).apiOnly() */
 
 
-  Route.resource('address', 'AddressController')
+Route.resource('address', 'AddressController')
   .middleware(new Map([
     [['index'], ['auth', 'typeUser:master,query,edit']],
     [['store'], ['auth', 'typeUser:master,edit']],
