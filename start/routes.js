@@ -61,17 +61,14 @@ Route.resource('shoppinglists', 'ShoppinglistController')
     [['destroy'], ['auth', 'typeUser:master']],
   ])).apiOnly()
 
-Route.get('getAllPurchases/:id', 'UserController.getAllPurchases')
-  .middleware([
-    'auth', 'typeUser:master,query,edit,self'
-  ])
+Route.group(() => {
 
-Route.get('getAllPaidPurchases/:id', 'UserController.getAllPaidPurchases')
-  .middleware([
-    'auth', 'typeUser:master,query,edit,self'
-  ])
+  Route.get('getAllPurchases/:id', 'UserController.getAllPurchases')
+  Route.get('getAllPaidPurchases/:id', 'UserController.getAllPaidPurchases')
+  Route.get('getAllUnPaidPurchases/:id', 'UserController.getAllUnPaidPurchases')
 
-Route.get('getAllUnPaidPurchases/:id', 'UserController.getAllUnPaidPurchases')
+})
   .middleware([
     'auth', 'typeUser:master,query,edit,self'
   ])
+  .prefix('user')
