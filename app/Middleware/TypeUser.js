@@ -22,13 +22,13 @@ class TypeUser {
     else if (props.includes(typeUser))
       return await next()
 
-    return response.status(401).send(
-      {
-        type: typeUser,
-        message: 'Você não possui autorização para efetuar essa ação!'
-      }
-    )
+    return response.status(401).send({
+      type: typeUser,
+      message: 'Você não possui autorização para efetuar essa ação!'
+    })
+
   }
+
 }
 
 module.exports = TypeUser
