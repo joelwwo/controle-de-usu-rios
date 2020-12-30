@@ -6,7 +6,7 @@ const Schema = use('Schema')
 class UserSchema extends Schema {
   up() {
     this.table('users', (table) => {
-      table.enum('type', ['user', 'master', 'query', 'edit']).defaultTo('user').alter()
+      table.enum('type', ['user', 'master', 'query', 'edit']).defaultTo('user')
     })
   }
 
