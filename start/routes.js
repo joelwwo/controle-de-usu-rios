@@ -29,7 +29,7 @@ Route.resource('users', 'UserController')
     [['index'], ['auth', 'typeUser:master,query,edit']],
     [['store'], ['auth', 'typeUser:master,edit']],
     [['show'], ['auth', 'typeUser:master,query,edit,self']],
-    [['update'], ['auth', 'typeUser:master,edit,self']],
+    [['update'], ['auth', 'typeUser:master,self']],
     [['destroy'], ['auth', 'typeUser:master']],
   ])).apiOnly()
 
