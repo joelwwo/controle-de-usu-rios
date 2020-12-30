@@ -10,7 +10,7 @@ class UserSchema extends Schema {
       table.string('name', 180).notNullable()
       table.string('email', 254).notNullable().unique()
       table.string('password', 600).notNullable()
-      table.enum('type', ['user', 'master', 'query']).defaultTo('user')
+      table.enum('type', ['user', 'master', 'query', 'edit']).defaultTo('user')
       table.boolean('active').defaultTo(true)
       table.timestamps()
     })

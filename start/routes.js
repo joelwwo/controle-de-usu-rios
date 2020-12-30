@@ -24,18 +24,40 @@ Route.get('/', () => {
 
 Route.post('/login', 'AuthController.authenticater')
 
-Route.group(() => {
-  Route.resource('users', 'UserController').apiOnly()
-}).middleware(['auth','typeUser:self,master'])
+Route.resource('users', 'UserController')
+  .middleware(new Map([
+    [['index'], ['auth', 'typeUser:master,query,edit']],
+    [['store'], ['auth', 'typeUser:master,edit']],
+    [['show'], ['auth', 'typeUser:master,query,edit,self']],
+    [['update'], ['auth', 'typeUser:master,edit,self']],
+    [['destroy'], ['auth', 'typeUser:master']],
+  ])).apiOnly()
 
-Route.group(() => {
-  Route.resource('address', 'AddressController').apiOnly()
-}).middleware('auth')
 
-Route.group(() => {
-  Route.resource('cellphones', 'CellphoneController').apiOnly()
-}).middleware('auth')
+Route.resource('address', 'AddressController')
+  .middleware(new Map([
+    [['index'], ['auth', 'typeUser:master,query,edit']],
+    [['store'], ['auth', 'typeUser:master,edit']],
+    [['show'], ['auth', 'typeUser:master,query,self,edit']],
+    [['update'], ['auth', 'typeUser:master,self,edit']],
+    [['destroy'], ['auth', 'typeUser:master,self']],
+  ])).apiOnly()
 
-Route.group(() => {
-  Route.resource('shoppinglists', 'ShoppinglistController').apiOnly()
-}).middleware('auth')
+Route.resource('cellphones', 'CellphoneController').middleware(new Map([
+  [['index'], ['auth', 'typeUser:master,query,edit']],
+  [['store'], ['auth', 'typeUser:master,edit']],
+  [['show'], ['auth', 'typeUser:master,query,edit,self']],
+  [['update'], ['auth', 'typeUser:master,edit,self']],
+  [['destroy'], ['auth', 'typeUser:master,self']],
+])).apiOnly()
+
+
+Route.resource('shoppinglists', 'ShoppinglistController')
+  .middleware(new Map([
+    [['index'], ['auth', 'typeUser:master,query,edit']],
+    [['store'], ['auth', 'typeUser:master,edit']],
+    [['show'], ['auth', 'typeUser:master,query,edit,self']],
+    [['update'], ['auth', 'typeUser:master']],
+    [['destroy'], ['auth', 'typeUser:master']],
+  ])).apiOnly()
+
