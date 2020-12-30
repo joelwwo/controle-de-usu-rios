@@ -7,6 +7,13 @@ class UserService extends BaseService {
         this.model = User
         this.members = ['address', 'cellphone']
     }
+
+    async getAllPurchases(id) {
+        const targetUser = await User.find(id)
+        const purchases = await targetUser.shoppinglist().fetch()
+        return purchases
+    }
+
 }
 
 module.exports = new UserService()
