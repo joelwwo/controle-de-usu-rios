@@ -1,4 +1,3 @@
-const User = use("App/Models/User")
 class BaseService {
     model
     members
