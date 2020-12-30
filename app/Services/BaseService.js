@@ -14,10 +14,12 @@ class BaseService {
     }
 
     async show(id) {
-        let targetModel = await this.model.find(id)
+        const targetModel = await this.model.find(id)
         if (!targetModel) return false
-        if (this.members.length)
-            return await targetModel.loadMany(['address', 'cellphone'])
+        /* if (this.members.length) {
+            let user = await targetModel.loadMany(['address', 'cellphone'])
+            return user
+        } */
         return targetModel
     }
 
