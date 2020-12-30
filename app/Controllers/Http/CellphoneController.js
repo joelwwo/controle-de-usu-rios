@@ -1,6 +1,6 @@
 'use strict'
 
-const Cellphone = use("App/Models/Cellphone")
+const CellphoneService = use("App/Services/CellphoneService")
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -20,7 +20,7 @@ class CellphoneController {
    * @param {View} ctx.view
    */
   async index() {
-    const cellPhones = await Cellphone.all()
+    const cellPhones = await CellphoneService.index()
     return cellPhones
   }
 
@@ -32,10 +32,9 @@ class CellphoneController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store({ request, auth }) {
-    const data = request.only(["description", "number"])
-    const cellphone = await Cellphone.create({ user_id: auth.user.id, ...data })
-    return cellphone
+  async store({ request }) {
+    const data = request.only(["user_id", "description", "number"])
+    return await CellphoneService.store(data)
   }
 
   /**
@@ -48,9 +47,9 @@ class CellphoneController {
    * @param {View} ctx.view
    */
   async show({ params, response }) {
-    const cellphone = await Cellphone.find(params.id)
-    if (!cellphone) return response.status(404).send({ message: 'Cellphone not found' })
-    return cellphone
+    const targetCellphone = await CellphoneService.show(params.id)
+    if (!targetCellphone) return response.status(404).send({ message: 'Cellphone not found!' })
+    return targetCellphone
   }
 
   /**
@@ -62,12 +61,10 @@ class CellphoneController {
    * @param {Response} ctx.response
    */
   async update({ params, request, response }) {
-    const cellphone = await Cellphone.find(params.id)
-    if (!cellphone) return response.status(404).send({ message: 'Cellphone not found' })
     const data = request.only(["description", "number"])
-    cellphone.merge(data)
-    await cellphone.save()
-    return cellphone
+    const targetCellphone = await CellphoneService.update(params.id, data)
+    if (!targetCellphone) return response.status(404).send({ message: 'Cellphone not found!' })
+    return targetCellphone
   }
 
   /**
@@ -79,10 +76,9 @@ class CellphoneController {
    * @param {Response} ctx.response
    */
   async destroy({ params, response }) {
-    const cellphone = await Cellphone.find(params.id)
-    if (!cellphone) return response.status(404).send({ message: 'Cellphone not found' })
-    await cellphone.delete()
-    return cellphone
+    const targetCellphone = await CellphoneService.destroy(params.id)
+    if (!targetCellphone) return response.status(404).send({ message: 'Cellphone not found!' })
+    return targetCellphone
   }
 }
 
