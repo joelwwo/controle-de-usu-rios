@@ -14,6 +14,20 @@ class UserService extends BaseService {
         return purchases
     }
 
+    async getAllPaidPurchases(id) {
+        const targetUser = await User.find(id)
+        const purchases = await targetUser.shoppinglist()
+            .where('paid', true).fetch()
+        return purchases
+    }
+
+    async getAllUnPaidPurchases(id) {
+        const targetUser = await User.find(id)
+        const purchases = await targetUser.shoppinglist()
+            .where('paid', false).fetch()
+        return purchases
+    }
+
 }
 
 module.exports = new UserService()
