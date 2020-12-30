@@ -12,8 +12,8 @@ const ShoppingListService = use("App/Services/ShoppinglistService")
 class ShoppinglistController {
 
   async index() {
-    const purchase = await ShoppingListService.index()
-    return purchase
+    const shoppingList = await ShoppingListService.index()
+    return shoppingList
   }
 
   async store({ request }) {
