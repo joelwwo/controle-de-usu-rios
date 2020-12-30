@@ -1,6 +1,7 @@
 'use strict'
 
 const UserService = use("App/Services/UserService")
+const User = use("App/Models/User")
 class UserController {
 
   async index() {
@@ -14,8 +15,9 @@ class UserController {
   }
 
   async show({ params, response }) {
-    const targetUser = await UserService.show(params.id)
+    let targetUser = await UserService.show(params.id)
     if (!targetUser) return response.status(404).send({ message: 'User not found!' })
+    await targetUser.loadMany(['address', 'cellphone'])
     return targetUser
   }
 

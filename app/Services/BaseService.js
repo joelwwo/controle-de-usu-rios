@@ -1,3 +1,4 @@
+const User = use("App/Models/User")
 class BaseService {
     model
     members
@@ -16,11 +17,8 @@ class BaseService {
     async show(id) {
         const targetModel = await this.model.find(id)
         if (!targetModel) return false
-        /* if (this.members.length) {
-            let user = await targetModel.loadMany(['address', 'cellphone'])
-            return user
-        } */
         return targetModel
+
     }
 
     async update(id, data) {
