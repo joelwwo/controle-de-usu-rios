@@ -32,6 +32,27 @@ class UserController {
     return targetUser
   }
 
+  /* Personalizados */
+
+  async getAllPurchases({ params, response }) {
+    const purchases = await UserService.getAllPurchases(params.id)
+    if (!purchases) return response.status(404).send({ message: 'User not found!' })
+    return purchases
+  }
+
+  async getAllPaidPurchases({ params, response }) {
+    const purchases = await UserService.getAllPaidPurchases(params.id)
+    if (!purchases) return response.status(404).send({ message: 'User not found!' })
+    return purchases
+  }
+
+  async getAllUnPaidPurchases({ params, response }) {
+    const purchases = await UserService.getAllUnPaidPurchases(params.id)
+    if (!purchases) return response.status(404).send({ message: 'User not found!' })
+    return purchases
+  }
+
+
 }
 
 module.exports = UserController

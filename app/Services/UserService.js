@@ -10,12 +10,14 @@ class UserService extends BaseService {
 
     async getAllPurchases(id) {
         const targetUser = await User.find(id)
+        if (!targetUser) return false
         const purchases = await targetUser.shoppinglist().fetch()
         return purchases
     }
 
     async getAllPaidPurchases(id) {
         const targetUser = await User.find(id)
+        if (!targetUser) return false
         const purchases = await targetUser.shoppinglist()
             .where('paid', true).fetch()
         return purchases
@@ -23,6 +25,7 @@ class UserService extends BaseService {
 
     async getAllUnPaidPurchases(id) {
         const targetUser = await User.find(id)
+        if (!targetUser) return false
         const purchases = await targetUser.shoppinglist()
             .where('paid', false).fetch()
         return purchases
