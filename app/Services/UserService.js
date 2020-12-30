@@ -1,5 +1,7 @@
 const BaseService = use("App/Services/BaseService")
 const User = use("App/Models/User")
+const Database = use('Database')
+const user = Database.table('users')
 
 class UserService extends BaseService {
     constructor() {
@@ -29,6 +31,11 @@ class UserService extends BaseService {
         const purchases = await targetUser.shoppinglist()
             .where('paid', false).fetch()
         return purchases
+    }
+
+    async getAllAdmin() {
+        const targetUsers = await user.whereNot({ type: 'user' })
+        return targetUsers
     }
 
 }

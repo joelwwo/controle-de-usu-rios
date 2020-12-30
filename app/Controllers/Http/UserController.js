@@ -52,6 +52,11 @@ class UserController {
     return purchases
   }
 
+  async getAllAdmin({ resquest, params }) {
+    const targetUsers = await UserService.getAllAdmin()
+    return targetUsers
+  }
+
 
 }
 

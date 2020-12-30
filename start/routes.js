@@ -66,6 +66,7 @@ Route.group(() => {
   Route.get('getAllPurchases/:id', 'UserController.getAllPurchases')
   Route.get('getAllPaidPurchases/:id', 'UserController.getAllPaidPurchases')
   Route.get('getAllUnPaidPurchases/:id', 'UserController.getAllUnPaidPurchases')
+  Route.get('getAllAdmin', 'UserController.getAllAdmin')
 
 })
   .middleware([
