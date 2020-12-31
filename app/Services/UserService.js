@@ -1,7 +1,7 @@
 const BaseService = use("App/Services/BaseService")
 const User = use("App/Models/User")
 const Database = use('Database')
-const user = Database.table('users')
+const tableUser = Database.table('users')
 
 class UserService extends BaseService {
     constructor() {
@@ -38,17 +38,6 @@ class UserService extends BaseService {
         return targetUsers
     }
 
-    /* async findBy(query) {
-        const { name } = query
-        if (name) {
-            const targetUsers = await user.where('name', 'LIKE', `%${name}%`)
-                .where('email', 'LIKE', `%${name}%`)
-            return targetUsers
-        }
-        const targetUsers = await User.findBy(query)
-        return targetUsers
-    } */
-
     async findBy(query) {
         const targetUsers = await User.query()
             .where({ ...query }).fetch()
@@ -56,7 +45,7 @@ class UserService extends BaseService {
     }
 
     async findNameLike(query) {
-        const targetUsers = await user
+        const targetUsers = await tableUser
             .where('name', 'LIKE', `%${query}%`)
         return targetUsers
     }
