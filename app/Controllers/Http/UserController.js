@@ -9,7 +9,7 @@ class UserController {
   }
 
   async store({ request }) {
-    const data = request.only(["name", "email", "password", "type", "active"])
+    const data = request.only(["cpf", "name", "email", "password", "type", "active"])
     return await UserService.store(data)
   }
 
@@ -20,7 +20,7 @@ class UserController {
   }
 
   async update({ params, request, response }) {
-    const data = request.only(["name", "email", "password", "type", "active"])
+    const data = request.only(["cpf", "name", "email", "password", "type", "active"])
     const targetUser = await UserService.update(params.id, data)
     if (!targetUser) return response.status(404).send({ message: 'User not found!' })
     return targetUser

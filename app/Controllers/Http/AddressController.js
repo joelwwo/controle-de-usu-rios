@@ -33,7 +33,7 @@ class AddressController {
    * @param {Response} ctx.response
    */
   async store({ request }) {
-    const data = request.only(['user_id', 'cep', 'name', 'publicPlace', 'details', 'neighborhood', 'city', 'state'])
+    const data = request.only(['location', 'user_id', 'cep', 'name', 'publicPlace', 'details', 'neighborhood', 'city', 'state'])
     return await AddressService.store(data)
   }
 
@@ -61,7 +61,7 @@ class AddressController {
    * @param {Response} ctx.response
    */
   async update({ params, request, response }) {
-    const data = request.only(['cep', 'name', 'publicPlace', 'details', 'neighborhood', 'city', 'state'])
+    const data = request.only(['location', 'cep', 'name', 'publicPlace', 'details', 'neighborhood', 'city', 'state'])
     const targetAddress = await AddressService.update(params.id, data)
     if (!targetAddress) return response.status(404).send({ message: 'Address not found!' })
     return targetAddress
