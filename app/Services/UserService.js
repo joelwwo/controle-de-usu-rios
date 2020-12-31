@@ -34,7 +34,7 @@ class UserService extends BaseService {
     }
 
     async getAllAdmin() {
-        const targetUsers = await user.whereNot({ type: 'user' })
+        const targetUsers = await tableUser.whereNot({ type: 'user' })
         return targetUsers
     }
 
