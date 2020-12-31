@@ -45,8 +45,9 @@ class UserService extends BaseService {
     }
 
     async findNameLike(query) {
-        const targetUsers = await tableUser
-            .where('name', 'LIKE', `%${query}%`)
+        const targetUsers = await User
+            .query()
+            .where('name', 'LIKE', `%${query}%`).fetch()
         return targetUsers
     }
 
