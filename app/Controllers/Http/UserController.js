@@ -57,6 +57,17 @@ class UserController {
     return targetUsers
   }
 
+  async findBy({ request, params }) {
+    const query = request.all()
+    const targetUsers = await UserService.findBy(query)
+    return targetUsers
+  }
+
+  async findNameLike({ params }) {
+    const targetUsers = await UserService.findNameLike(params.query)
+    return targetUsers
+  }
+
 
 }
 
