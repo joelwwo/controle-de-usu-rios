@@ -6,7 +6,7 @@ class StoreUser {
         return {
             name: 'required|min:2',
             email: 'email|unique:users',
-            password: 'required|min:6',
+            password: 'min:6',
             cpf: 'min:11|max:11',
             type: 'in:master,edit,query,user'
         }
@@ -18,7 +18,6 @@ class StoreUser {
             'name.min': 'Por favor, informe um nome com mais de 1 caractere.',
             'email.email': 'Informe um e-mail válido.',
             'email.unique': 'Esse e-mail já está cadastrado em outro usuário',
-            'password.required': 'Por favor, informe uma senha.',
             'password.min': 'Por favor, informe uma senha com mais de 5 caracteres.',
             'cpf.min': 'O CPF deve possuir 11 caracteres.',
             'cpf.max': 'O CPF deve possuir 11 caracteres.',
