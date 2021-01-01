@@ -59,8 +59,12 @@ Route.resource('cellphones', 'CellphoneController').middleware(new Map([
   [['show'], ['auth', 'typeUser:master,query,edit,self']],
   [['update'], ['auth', 'typeUser:master,edit,self']],
   [['destroy'], ['auth', 'typeUser:master,self']],
-])).apiOnly()
-
+]))
+  .validator(new Map([
+    [['cellphones.store'], ['StoreCellphone']],
+    [['cellphones.update'], ['UpdateCellphone']]
+  ]))
+  .apiOnly()
 
 Route.resource('shoppinglists', 'ShoppinglistController')
   .middleware(new Map([
