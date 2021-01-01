@@ -10,6 +10,7 @@ class StoreAddress {
             neighborhood: 'min:5',
             city: 'min:4',
             state: 'min:2',
+            details: 'min:3',
             location: 'url'
         }
     }
@@ -24,6 +25,7 @@ class StoreAddress {
             'city.min': 'Por favor, informe uma cidade com mais de 3 caracteres.',
             'state.min': 'Por favor, informe um estado com mais de 1 caractere.',
             'location.url': 'A URL da localização está em um formato inválido.',
+            'details.min': 'Por favor, informe um complemento com mais de 2 caracteres.',
         }
     }
 
