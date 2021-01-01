@@ -4,8 +4,8 @@ class StoreUser {
 
     get rules() {
         return {
-            email: 'required|email|unique:users',
             name: 'required|min:2',
+            email: 'email|unique:users',
             password: 'required|min:6',
             cpf: 'min:11|max:11',
             type: 'in:master,edit,query,user'
@@ -14,8 +14,8 @@ class StoreUser {
 
     get messages() {
         return {
-            'nome.required': 'Informe o nome.',
-            'nome.min': 'Por favor, informe um nome com mais de 1 caractere.',
+            'name.required': 'Informe o nome.',
+            'name.min': 'Por favor, informe um nome com mais de 1 caractere.',
             'email.email': 'Informe um e-mail válido.',
             'email.unique': 'Esse e-mail já está cadastrado em outro usuário',
             'password.required': 'Por favor, informe uma senha.',
