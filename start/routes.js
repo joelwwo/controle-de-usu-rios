@@ -31,7 +31,12 @@ Route.resource('users', 'UserController')
     [['show'], ['auth', 'typeUser:master,query,edit,self']],
     [['update'], ['auth', 'typeUser:master,self']],
     [['destroy'], ['auth', 'typeUser:master']],
-  ])).apiOnly()
+  ]))
+  .validator(new Map([
+    [['users.store'], ['StoreUser']],
+    [['users.update'], ['UpdateUser']]
+  ]))
+  .apiOnly()
 
 
 Route.resource('address', 'AddressController')
