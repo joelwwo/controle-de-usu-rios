@@ -1,5 +1,5 @@
 'use strict'
-
+const Env = use('Env')
 module.exports = {
   /*
   |--------------------------------------------------------------------------
@@ -16,7 +16,14 @@ module.exports = {
   | Function - Receives the current origin and should return one of the above values.
   |
   */
-  origin: false,
+  origin: (currentOrigin) => {
+    const allowedDomains = [
+      'https://admin-farmacias-mais-popular.netlify.com'
+    ]
+    if (Env.get('NODE_ENV​') === 'production')
+      return allowedDomains.includes(currentOrigin)
+    return true
+  },
 
   /*
   |--------------------------------------------------------------------------
@@ -47,14 +54,7 @@ module.exports = {
   | Function - Receives the current header and should return one of the above values.
   |
   */
-  headers: function (currentOrigin) {
-    const allowedDomains = [
-      'http://localhost:4200', 'http://127.0.0.1:4200',
-      'https://admin-farmacias-mais-popular.netlify.com'
-    ]
-    console.log('', currentOrigin);
-    return allowedDomains.includes(currentOrigin)
-  },
+  headers: true,
 
   /*
   |--------------------------------------------------------------------------
