@@ -49,7 +49,7 @@ module.exports = {
   */
   headers: function (currentOrigin) {
     const allowedDomains = [
-      'http://localhost', 'http://127.0.0.1',
+      'http://localhost:4200', 'http://127.0.0.1:4200',
       'https://admin-farmacias-mais-popular.netlify.com'
     ]
     console.log('', currentOrigin);
