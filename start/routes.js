@@ -73,7 +73,12 @@ Route.resource('shoppinglists', 'ShoppinglistController')
     [['show'], ['auth', 'typeUser:master,query,edit,self']],
     [['update'], ['auth', 'typeUser:master']],
     [['destroy'], ['auth', 'typeUser:master']],
-  ])).apiOnly()
+  ]))
+  .validator(new Map([
+    [['shoppinglists.store'], ['StoreShoppinglist']],
+    [['shoppinglists.update'], ['StoreShoppinglist']]
+  ]))
+  .apiOnly()
 
 Route.group(() => {
 
