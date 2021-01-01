@@ -4,7 +4,7 @@ class StoreAddress {
 
     get rules() {
         return {
-            cep: 'min:7|max:7',
+            cep: 'min:8|max:8',
             name: 'min:2',
             publicPlace: 'min:5',
             neighborhood: 'min:5',
@@ -16,8 +16,8 @@ class StoreAddress {
 
     get messages() {
         return {
-            'cep.min': 'O CEP deve possuir 7 caracteres.',
-            'cep.max': 'O CEP deve possuir 7 caracteres.',
+            'cep.min': 'O CEP deve possuir 8 caracteres.',
+            'cep.max': 'O CEP deve possuir 8 caracteres.',
             'name.min': 'Por favor, informe um nome com mais de 1 caractere.',
             'publicPlace.min': 'Por favor, informe um endereço com mais de 5 caracteres.',
             'neighborhood.min': 'Por favor, informe uma quadra com mais de 5 caracteres.',
