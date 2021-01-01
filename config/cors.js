@@ -47,7 +47,14 @@ module.exports = {
   | Function - Receives the current header and should return one of the above values.
   |
   */
-  headers: true,
+  headers: function (currentOrigin) {
+    const allowedDomains = [
+      'http://localhost', 'http://127.0.0.1',
+      'https://admin-farmacias-mais-popular.netlify.com'
+    ]
+    console.log('', currentOrigin);
+    return allowedDomains.includes(currentOrigin)
+  },
 
   /*
   |--------------------------------------------------------------------------
