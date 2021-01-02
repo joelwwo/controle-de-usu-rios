@@ -5,7 +5,7 @@ class AuthController {
     async authenticater({ request, response, auth }) {
         const { email, password } = request.all()
         if (!(email && password))
-            response.status(400).send([{
+            return response.status(400).send([{
                 message: 'Informe o e-email e a senha para efetuar login.'
             }])
 
