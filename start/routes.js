@@ -57,7 +57,7 @@ Route.resource('cellphones', 'CellphoneController').middleware(new Map([
   [['index'], ['auth', 'typeUser:master,query,edit']],
   [['store'], ['auth', 'typeUser:master,edit']],
   [['show'], ['auth', 'typeUser:master,query,edit,self']],
-  [['update'], ['auth', 'typeUser:master,edit,self']],
+  [['update'], ['auth', 'typeUser:master,edit,self', 'cellphoneOwner']],
   [['destroy'], ['auth', 'typeUser:master,self']],
 ]))
   .validator(new Map([

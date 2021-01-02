@@ -38,7 +38,8 @@ const namedMiddleware = {
   auth: 'Adonis/Middleware/Auth',
   guest: 'Adonis/Middleware/AllowGuestOnly',
   typeUser: 'App/Middleware/TypeUser',
-  cpfOrEmailOwner: 'App/Middleware/CpfOrEmailOwner'
+  cpfOrEmailOwner: 'App/Middleware/CpfOrEmailOwner',
+  cellphoneOwner: 'App/Middleware/CellphoneOwner'
 }
 
 /*
