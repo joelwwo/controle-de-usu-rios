@@ -76,7 +76,7 @@ Route.resource('shoppinglists', 'ShoppinglistController')
   ]))
   .validator(new Map([
     [['shoppinglists.store'], ['StoreShoppinglist']],
-    [['shoppinglists.update'], ['StoreShoppinglist']]
+    [['shoppinglists.update'], ['UpdateShoppinglist']]
   ]))
   .apiOnly()
 
