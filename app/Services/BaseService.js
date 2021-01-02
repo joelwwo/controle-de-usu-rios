@@ -3,38 +3,57 @@ class BaseService {
     members
 
     async index() {
-        if (this.members.length)
-            return await this.model.query().with(this.members[0]).fetch()
-        return await this.model.all()
+        try {
+            if (this.members.length)
+                return await this.model.query().with(this.members[0]).fetch()
+            return await this.model.all()
+        } catch (e) {
+
+        }
     }
 
     async store(data) {
-        const targetModel = await this.model.create(data)
-        return targetModel
+        try {
+            const targetModel = await this.model.create(data)
+            return targetModel
+        } catch (error) {
+
+        }
     }
 
     async show(id) {
-        const targetModel = await this.model.find(id)
-        if (!targetModel) return false
-        if (this.members.length)
-            await targetModel.loadMany(this.members)
-        return targetModel
+        try {
+            const targetModel = await this.model.find(id)
+            if (!targetModel) return false
+            if (this.members.length)
+                await targetModel.loadMany(this.members)
+            return targetModel
+        } catch (error) {
 
+        }
     }
 
     async update(id, data) {
-        const targetModel = await this.model.find(id)
-        if (!targetModel) return false
-        targetModel.merge(data)
-        await targetModel.save()
-        return targetModel
+        try {
+            const targetModel = await this.model.find(id)
+            if (!targetModel) return false
+            targetModel.merge(data)
+            await targetModel.save()
+            return targetModel
+        } catch (error) {
+
+        }
     }
 
     async destroy(id) {
-        const targetModel = await this.model.find(id)
-        if (!targetModel) return false
-        await targetModel.delete()
-        return targetModel
+        try {
+            const targetModel = await this.model.find(id)
+            if (!targetModel) return false
+            await targetModel.delete()
+            return targetModel
+        } catch (error) {
+
+        }
     }
 
 }

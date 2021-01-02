@@ -11,46 +11,70 @@ class UserService extends BaseService {
     }
 
     async getAllPurchases(id) {
-        const targetUser = await User.find(id)
-        if (!targetUser) return false
-        const purchases = await targetUser.shoppinglist().fetch()
-        return purchases
+        try {
+            const targetUser = await User.find(id)
+            if (!targetUser) return false
+            const purchases = await targetUser.shoppinglist().fetch()
+            return purchases
+        } catch (error) {
+
+        }
     }
 
     async getAllPaidPurchases(id) {
-        const targetUser = await User.find(id)
-        if (!targetUser) return false
-        const purchases = await targetUser.shoppinglist()
-            .where('paid', true).fetch()
-        return purchases
+        try {
+            const targetUser = await User.find(id)
+            if (!targetUser) return false
+            const purchases = await targetUser.shoppinglist()
+                .where('paid', true).fetch()
+            return purchases
+        } catch (error) {
+
+        }
     }
 
     async getAllUnPaidPurchases(id) {
-        const targetUser = await User.find(id)
-        if (!targetUser) return false
-        const purchases = await targetUser.shoppinglist()
-            .where('paid', false).fetch()
-        return purchases
+        try {
+            const targetUser = await User.find(id)
+            if (!targetUser) return false
+            const purchases = await targetUser.shoppinglist()
+                .where('paid', false).fetch()
+            return purchases
+        } catch (error) {
+
+        }
     }
 
     async getAllAdmin() {
-        const targetUsers = await tableUser.whereNot({ type: 'user' })
-        return targetUsers
+        try {
+            const targetUsers = await tableUser.whereNot({ type: 'user' })
+            return targetUsers
+        } catch (error) {
+
+        }
     }
 
     async findBy(query) {
-        const targetUsers = await User.query()
-            .where({ ...query }).fetch()
-        return targetUsers
+        try {
+            const targetUsers = await User.query()
+                .where({ ...query }).fetch()
+            return targetUsers
+        } catch (error) {
+
+        }
     }
 
     async findNameLike(query) {
-        const targetUsers = await User
-            .query()
-            .with('address')
-            .with('cellphone')
-            .where('name', 'LIKE', `%${query}%`).fetch()
-        return targetUsers
+        try {
+            const targetUsers = await User
+                .query()
+                .with('address')
+                .with('cellphone')
+                .where('name', 'LIKE', `%${query}%`).fetch()
+            return targetUsers
+        } catch (error) {
+
+        }
     }
 
 }
