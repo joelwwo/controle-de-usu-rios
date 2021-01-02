@@ -5,7 +5,7 @@ class StoreCellphone {
     get rules() {
         return {
             description: 'required|min:3|max:120',
-            number: 'required|min:11|max:11',
+            number: 'unique:cellphones|required|min:11|max:11',
         }
     }
 
@@ -17,6 +17,7 @@ class StoreCellphone {
             'number.required': 'Informe o número.',
             'number.min': 'Por favor, informe um número com 11 caracteres.',
             'number.max': 'Por favor, informe um número com 11 caracteres.',
+            'number.unique': 'O número informado já está em uso em outra conta.',
         }
     }
 
