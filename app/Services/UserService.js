@@ -10,14 +10,6 @@ class UserService extends BaseService {
         this.members = ['address', 'cellphone']
     }
 
-    async update(id, data) {
-        const targetModel = await this.model.find(id)
-        if (!targetModel) return false
-        targetModel.merge(data)
-        await targetModel.save()
-        return targetModel
-    }
-
     async getAllPurchases(id) {
         const targetUser = await User.find(id)
         if (!targetUser) return false
