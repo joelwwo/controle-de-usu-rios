@@ -27,9 +27,9 @@ Route.post('/login', 'AuthController.authenticater')
 Route.resource('users', 'UserController')
   .middleware(new Map([
     [['index'], ['auth', 'typeUser:master,query,edit']],
-    [['store'], ['auth', 'typeUser:master,edit']],
+    [['store'], ['auth', 'typeUser:master,edit', 'cpfOrEmailOwner']],
     [['show'], ['auth', 'typeUser:master,query,edit,self']],
-    [['update'], ['auth', 'typeUser:master,self']],
+    [['update'], ['auth', 'typeUser:master,self', 'cpfOrEmailOwner']],
     [['destroy'], ['auth', 'typeUser:master']],
   ]))
   .validator(new Map([

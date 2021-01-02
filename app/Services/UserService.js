@@ -14,7 +14,7 @@ class UserService extends BaseService {
         const targetModel = await this.model.find(id)
         if (!targetModel) return false
         const { email, cpf } = data
-        if (email) {
+        /* if (email) {
             const user = await User.findBy({ email })
             if (user.id != id)
                 return [
@@ -27,7 +27,7 @@ class UserService extends BaseService {
                 return [
                     { message: 'Esse CPF já está em uso em outra conta!' }
                 ]
-        }
+        } */
         targetModel.merge(data)
         await targetModel.save()
         return targetModel
