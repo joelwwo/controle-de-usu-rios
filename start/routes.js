@@ -18,7 +18,8 @@ const { RouteResource } = require('@adonisjs/framework/src/Route/Manager')
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.get('/', () => {
+Route.get('/', ({ request }) => {
+  if (Object.entries(request.all()).length) return request.all()
   return { message: 'Beleza, Matos', by: 'Joel' }
 })
 
