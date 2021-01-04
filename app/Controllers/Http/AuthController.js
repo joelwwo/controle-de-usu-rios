@@ -16,7 +16,7 @@ class AuthController {
                     message: 'E-mail não registrado.'
                 }])
             if (!user.active)
-                return response.status(400).send([{
+                return response.status(401).send([{
                     message: 'Sua conta está desativada.'
                 }])
             const token = await auth.attempt(email, password)
