@@ -1,5 +1,5 @@
-'use strict'
-const Env = use('Env')
+"use strict";
+const Env = use("Env");
 module.exports = {
   /*
   |--------------------------------------------------------------------------
@@ -17,12 +17,12 @@ module.exports = {
   |
   */
   origin: (currentOrigin) => {
-    const allowedDomains = [
+    /* const allowedDomains = [
       'https://admin-farmacias-mais-popular.netlify.com'
     ]
     if (Env.get('NODE_ENV​') === 'production')
-      return allowedDomains.includes(currentOrigin)
-    return true
+      return allowedDomains.includes(currentOrigin) */
+    return true;
   },
 
   /*
@@ -36,7 +36,7 @@ module.exports = {
   | Array - An array of allowed methods
   |
   */
-  methods: ['GET', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  methods: ["GET", "PUT", "PATCH", "POST", "DELETE"],
 
   /*
   |--------------------------------------------------------------------------
@@ -90,5 +90,5 @@ module.exports = {
   | Define Access-Control-Allow-Max-Age
   |
   */
-  maxAge: 90
-}
+  maxAge: 90,
+};
