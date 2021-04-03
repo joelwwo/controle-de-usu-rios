@@ -1,6 +1,6 @@
-'use strict'
+"use strict";
 
-const AddressService = use('App/Services/AddressService')
+const AddressService = use("App/Services/AddressService");
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -20,8 +20,8 @@ class AddressController {
    * @param {View} ctx.view
    */
   async index() {
-    const addresses = await AddressService.index()
-    return addresses
+    const addresses = await AddressService.index();
+    return addresses;
   }
 
   /**
@@ -32,9 +32,20 @@ class AddressController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store({ request }) {
-    const data = request.only(['location', 'user_id', 'cep', 'name', 'publicPlace', 'details', 'neighborhood', 'city', 'state'])
-    return await AddressService.store(data)
+  async store({ request, auth }) {
+    const data = request.only([
+      "location",
+      "user_id",
+      "cep",
+      "name",
+      "publicPlace",
+      "details",
+      "neighborhood",
+      "city",
+      "state",
+    ]);
+    if (!data.user_id) data.user_id = auth.user.id;
+    return await AddressService.store(data);
   }
 
   /**
@@ -47,9 +58,10 @@ class AddressController {
    * @param {View} ctx.view
    */
   async show({ params, response }) {
-    const targetAddress = await AddressService.show(params.id)
-    if (!targetAddress) return response.status(404).send({ message: 'Address not found!' })
-    return targetAddress
+    const targetAddress = await AddressService.show(params.id);
+    if (!targetAddress)
+      return response.status(404).send({ message: "Address not found!" });
+    return targetAddress;
   }
 
   /**
@@ -61,10 +73,20 @@ class AddressController {
    * @param {Response} ctx.response
    */
   async update({ params, request, response }) {
-    const data = request.only(['location', 'cep', 'name', 'publicPlace', 'details', 'neighborhood', 'city', 'state'])
-    const targetAddress = await AddressService.update(params.id, data)
-    if (!targetAddress) return response.status(404).send({ message: 'Address not found!' })
-    return targetAddress
+    const data = request.only([
+      "location",
+      "cep",
+      "name",
+      "publicPlace",
+      "details",
+      "neighborhood",
+      "city",
+      "state",
+    ]);
+    const targetAddress = await AddressService.update(params.id, data);
+    if (!targetAddress)
+      return response.status(404).send({ message: "Address not found!" });
+    return targetAddress;
   }
 
   /**
@@ -76,10 +98,11 @@ class AddressController {
    * @param {Response} ctx.response
    */
   async destroy({ params, response }) {
-    const targetAddress = await AddressService.destroy(params.id)
-    if (!targetAddress) return response.status(404).send({ message: 'Address not found!' })
-    return targetAddress
+    const targetAddress = await AddressService.destroy(params.id);
+    if (!targetAddress)
+      return response.status(404).send({ message: "Address not found!" });
+    return targetAddress;
   }
 }
 
-module.exports = AddressController
+module.exports = AddressController;

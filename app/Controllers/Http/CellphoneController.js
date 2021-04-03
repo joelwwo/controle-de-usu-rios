@@ -1,6 +1,6 @@
-'use strict'
+"use strict";
 
-const CellphoneService = use("App/Services/CellphoneService")
+const CellphoneService = use("App/Services/CellphoneService");
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -20,8 +20,8 @@ class CellphoneController {
    * @param {View} ctx.view
    */
   async index() {
-    const cellPhones = await CellphoneService.index()
-    return cellPhones
+    const cellPhones = await CellphoneService.index();
+    return cellPhones;
   }
 
   /**
@@ -32,9 +32,10 @@ class CellphoneController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store({ request }) {
-    const data = request.only(["user_id", "description", "number"])
-    return await CellphoneService.store(data)
+  async store({ request, auth }) {
+    const data = request.only(["user_id", "description", "number"]);
+    if (!data.user_id) data.user_id = auth.user.id;
+    return await CellphoneService.store(data);
   }
 
   /**
@@ -47,9 +48,10 @@ class CellphoneController {
    * @param {View} ctx.view
    */
   async show({ params, response }) {
-    const targetCellphone = await CellphoneService.show(params.id)
-    if (!targetCellphone) return response.status(404).send({ message: 'Cellphone not found!' })
-    return targetCellphone
+    const targetCellphone = await CellphoneService.show(params.id);
+    if (!targetCellphone)
+      return response.status(404).send({ message: "Cellphone not found!" });
+    return targetCellphone;
   }
 
   /**
@@ -61,10 +63,11 @@ class CellphoneController {
    * @param {Response} ctx.response
    */
   async update({ params, request, response }) {
-    const data = request.only(["description", "number"])
-    const targetCellphone = await CellphoneService.update(params.id, data)
-    if (!targetCellphone) return response.status(404).send({ message: 'Cellphone not found!' })
-    return targetCellphone
+    const data = request.only(["description", "number"]);
+    const targetCellphone = await CellphoneService.update(params.id, data);
+    if (!targetCellphone)
+      return response.status(404).send({ message: "Cellphone not found!" });
+    return targetCellphone;
   }
 
   /**
@@ -76,10 +79,11 @@ class CellphoneController {
    * @param {Response} ctx.response
    */
   async destroy({ params, response }) {
-    const targetCellphone = await CellphoneService.destroy(params.id)
-    if (!targetCellphone) return response.status(404).send({ message: 'Cellphone not found!' })
-    return targetCellphone
+    const targetCellphone = await CellphoneService.destroy(params.id);
+    if (!targetCellphone)
+      return response.status(404).send({ message: "Cellphone not found!" });
+    return targetCellphone;
   }
 }
 
-module.exports = CellphoneController
+module.exports = CellphoneController;
