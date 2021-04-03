@@ -17,7 +17,11 @@ module.exports = {
   |
   */
   origin: (currentOrigin) => {
-    const allowedDomains = ["https://admin-farmacias-mais-popular.netlify.com"];
+    const allowedDomains = [
+      "https://admin-farmacias-mais-popular.netlify.com",
+      "http://localhost:4200",
+      "http://127.0.0.1:4200",
+    ];
     if (Env.get("NODE_ENV​") === "production")
       return allowedDomains.includes(currentOrigin);
     return true;
