@@ -20,7 +20,7 @@ const Route = use("Route");
 
 Route.get("/", ({ request }) => {
   if (Object.entries(request.all()).length) return request.all();
-  return { message: "Beleza, Matos", by: "Joel" };
+  return { message: "Beleza, Matos!", by: "Joel" };
 });
 
 Route.post("/login", "AuthController.authenticater");

@@ -17,11 +17,9 @@ module.exports = {
   |
   */
   origin: (currentOrigin) => {
-    /* const allowedDomains = [
-      'https://admin-farmacias-mais-popular.netlify.com'
-    ]
-    if (Env.get('NODE_ENV​') === 'production')
-      return allowedDomains.includes(currentOrigin) */
+    const allowedDomains = ["https://admin-farmacias-mais-popular.netlify.com"];
+    if (Env.get("NODE_ENV​") === "production")
+      return allowedDomains.includes(currentOrigin);
     return true;
   },
 
