@@ -18,7 +18,7 @@ class StoreUser {
       "email.email": "Informe um e-mail válido.",
       "email.unique": "Esse e-mail já está cadastrado em outro usuário",
       "password.min": "Por favor, informe uma senha com mais de 5 caracteres.",
-      "email.unique": "Esse CPF já está cadastrado em outro usuário",
+      "cpf.unique": "Esse CPF já está cadastrado em outro usuário",
       "cpf.min": "O CPF deve possuir 11 caracteres.",
       "cpf.max": "O CPF deve possuir 11 caracteres.",
       "type.in":
