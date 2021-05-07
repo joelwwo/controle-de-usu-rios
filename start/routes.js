@@ -33,6 +33,7 @@ Route.resource("users", "UserController")
       [["show"], ["auth", "typeUser:master,query,edit,self"]],
       [["update"], ["auth", "typeUser:master,self", "cpfOrEmailOwner"]],
       [["destroy"], ["auth", "typeUser:master"]],
+      [["sessionUser"], ["auth"]],
     ])
   )
   .validator(
@@ -107,6 +108,7 @@ Route.group(() => {
   Route.get("getAllAdmin", "UserController.getAllAdmin");
   Route.get("findBy", "UserController.findBy");
   Route.get("findNameLike/:query", "UserController.findNameLike");
+  Route.get("/sessionUser", "UserController.sessionUser");
 })
   .middleware(["auth", "typeUser:master,query,edit,self"])
   .prefix("user");
