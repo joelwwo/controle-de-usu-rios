@@ -5,7 +5,7 @@ class BaseService {
   async index() {
     try {
       if (this.members.length)
-        return await this.model.query().with(this.members).fetch();
+        return await this.model.query().with(this.members[0]).fetch();
       return await this.model.all();
     } catch (e) {}
   }
